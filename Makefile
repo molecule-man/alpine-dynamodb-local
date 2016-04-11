@@ -1,5 +1,5 @@
 IMAGE = molecularman/alpine-dynamodb-local
-VERSION = 1
+VERSION = 1.0.0
 
 ifdef CIRCLE_BUILD_NUM
 	BUILD_NUM = ${CIRCLE_BUILD_NUM}
@@ -8,8 +8,8 @@ else
 endif
 
 build:
-	docker build -t $(IMAGE):$(VERSION) . && \
-		docker tag $(IMAGE):$(VERSION) $(IMAGE):$(VERSION)-$(BUILD_NUM)
+	docker build -t $(IMAGE):$(VERSION) .
+	docker tag $(IMAGE):$(VERSION) $(IMAGE):$(VERSION)-$(BUILD_NUM)
 
 launch: stop
 	docker run -d --name adl -p 8000:8000 $(IMAGE):$(VERSION)
@@ -22,7 +22,7 @@ stop:
 	docker kill adl && docker rm -f adl || true
 
 push:
-	docker tag $(IMAGE):$(VERSION) $(IMAGE):$(VERSION)-$(BUILD_NUM)
+	docker tag $(IMAGE):$(VERSION) $(IMAGE):latest
 	docker push $(IMAGE):$(VERSION)
 	docker push $(IMAGE):$(VERSION)-$(BUILD_NUM)
 	docker push $(IMAGE):latest
