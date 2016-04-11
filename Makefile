@@ -19,7 +19,7 @@ test: launch
 	curl -i localhost:8000
 
 stop:
-	docker kill adl && docker rm -f adl
+	docker kill adl && docker rm -f adl || true
 
 push:
 	docker tag $(IMAGE):$(VERSION) $(IMAGE):$(VERSION)-$(BUILD_NUM)
