@@ -1,0 +1,25 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker info
+    - make build
+    - docker images
+
+checkout:
+    post:
+        - git config user.name "Circle CI Build Bot"
+        - git config user.email "no-reply@circleci.com"
+        - git remote -v
+
+test:
+  override:
+    - make test
+
+deployment:
+  hub:
+    branch: master
+    commands:
+      - make push
