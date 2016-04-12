@@ -16,7 +16,7 @@ launch: stop
 
 test: launch
 	sleep 1
-	curl -i localhost:8000
+	./test.sh
 
 stop:
 	docker kill adl && docker rm -f adl || true
